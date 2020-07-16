@@ -1,26 +1,25 @@
-Single Sign-On for PHP (Ajax compatible)
+Single Sign-On for PHP (AJAX 지원)
 ---
 
-Jasny\SSO is a relatively simply and straightforward solution for an single sign on (SSO) implementation. With SSO,
-logging into a single website will authenticate you for all affiliate sites.
+Jasny\SSO는 SSO(Single Sign-On) 구현을 위해 비교적 간단하고 편한 솔루션 입니다.
+SSO를 사용하게 된다면 한 사이트에서 로그인 하는 것만으로도 모든 연동 사이트에서 인증 과정을 거치게 됩니다.
 
-### How it works
+### 어떻게 작동 되는가?
 
-When using SSO, when can distinguish 3 parties:
+SSO를 사용할 때 제3자를 구별할 수 있는 경우:
 
-* Client - This is the browser of the visitor
-* Broker - The website which is visited
-* Server - The place that holds the user info and credentials
+* 클라이언트(Client) - 방문자의 기기 및 브라우저
+* 브로커(Broker) - 방문한 웹 사이트
+* 서버(Server) - 사용자 정보 및 인증 정보를 보유하는 곳
 
-The broker has an id and a secret. These are know to both the broker and server.
+브로커는 Broker ID와 Broker Secret을 보유하고 있습니다. 이것들은 브로커와 서버 전체에 공유됩니다.
 
-When the client visits the broker, it creates a random token, which is stored in a cookie. The broker will then send
-the client to the server, passing along the broker's id and token. The server creates a hash using the broker id, broker
-secret and the token. This hash is used to create a link to the users session. When the link is created the server
-redirects the client back to the broker.
+클라이언트가 브로커를 방문하면 쿠키에 임의 토큰을 생성합니다.
+그러면 브로커가 클라이언트를 서버로 보내고 Broker ID와 토큰을 전달합니다.
+서버는 Broker ID와 Broker Secret을 사용하여 해시를 생성합니다.
+여기서 생성된 해시는 사용자 세션에 대한 링크를 만드는데 사용되며, 링크가 생성되면 서버는 클라이언트를 브로커에게 리디렉션 시킵니다.
 
-The broker can create the same link hash using the token (from the cookie), the broker id and the broker secret. When
-doing requests, it passes that has as session id.
+브로커는 쿠키에 토큰, Broker ID 및 Broker Secret을 사용하여 동일한 해시를 만들 수 있습니다.
 
 The server will notice that the session id is a link and use the linked session. As such, the broker and client are
 using the same session. When another broker joins in, it will also use the same session.
